@@ -33,6 +33,11 @@ summary { list-style: none; cursor: pointer; padding: 1.3rem 1.5rem; display: fl
 summary::-webkit-details-marker { display: none; }
 .title { display: block; font-weight: 650; font-size: 1.2rem; overflow-wrap: anywhere; }
 .meta { display: flex; flex-wrap: wrap; gap: .4rem 1rem; margin-top: .55rem; color: var(--muted); font-size: .95rem; }
+.meta { align-items: baseline; }
+.cv-match { border-radius: .4rem; padding: .1rem .42rem; white-space: nowrap; }
+.cv-match.high { background: #e3f6e8; color: #146435; font-weight: 750; }
+.cv-match.medium { background: #fff0de; color: #8a420c; }
+.cv-match.low { background: #fce8e9; color: #a02031; }
 .toggle { display: grid; place-items: center; flex: 0 0 2rem; height: 2rem; border-radius: 50%; background: #f5f5f7; color: var(--blue); }
 .toggle::before { content: "+"; font-size: 1.2rem; }
 .job-details[open] > summary .toggle::before { content: "−"; }

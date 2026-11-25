@@ -33,6 +33,33 @@ function stateFor(url) {
   return typeof saved === 'string' ? { status: saved } : saved ?? {};
 }
 
+function cvMatch(job) {
+  const description = (job.description ?? '').split(/\n\s*\n\s*(?:shoda s cv|cv match):/i)[0];
+  const text = (job.title + ' ' + description).normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
+  const has = pattern => pattern.test(text);
+  const platforms = [
+    /\bwincc\b|citect/,
+    /\bsiemens\b|\bs[57](?:-\d+)?\b|\btia\b|pcs\s*7|step\s*7/,
+    /schneider|\bm580\b|control expert/,
+    /beckhoff|twincat|ethercat/,
+    /mitsubishi|opc[\s-]*ua/,
+  ].filter(has).length;
+  const controls = has(/\b(?:plc|sps|scada|dcs|hmi|mcr|msre?)\b|control systems?|control[- ]commande|controle[- ]commande|ridic[iy]ch? system|leittechnik|prozessleit|automatiz|automatis|automation/);
+  const engineering = has(/program|software|vyvoj|develop|konfigur|parametr|integr|architekt|design|navrh|konzept/);
+  const delivery = has(/commission|inbetrieb|mise en service|zprovozn|uveden|uvadeni|oziv|\b(?:fat|sat|sit)\b|prejim|diagnos|diagnost|troubleshoot|depann|fehlersuch/);
+  const sector = has(/kryogen|cryogen|\b(?:hvac|cvc)\b|chlazen|ventil|process control|procesni|prozess|pharm|farmac|chemick|chemical|energet|energie|energy|instrument/);
+  const software = has(/c\+\+|\bpython\b|control\+\+|\bctrl\b|ci\/cd|gitlab|\bwincc oa\b/);
+  const level = has(/\b(?:senior|experienced|erfahren|leader|lead)\b|zkusen|mehrjahr|plusieurs annees|experimente|engineering degree/);
+  const language = has(/anglictin|english|anglais|francouz|francais|polstin|cestin/);
+  const germanRequired = has(/nemcin[^.]{0,28}(?:povinn|vyzad|nutn)|(?:povinn|vyzad|nutn)[^.]{0,28}nemcin|deutschkenntnisse|allemand courant|german (?:is )?(?:mandatory|required)/);
+  const graduateOnly = has(/graduate only|phd are not eligible|absolventsky program|pouze pro absolventy/);
+  const points = 12 + (controls ? 21 : 0) + Math.min(platforms * 8, 24)
+    + (engineering ? 11 : 0) + (delivery ? 13 : 0) + (sector ? 9 : 0)
+    + (software ? 9 : 0) + (level ? 7 : 0) + (language ? 4 : 0)
+    - (germanRequired ? 14 : 0) - (graduateOnly ? 30 : 0);
+  return Math.max(0, Math.min(100, points));
+}
+
 function card(job, expanded, archived = false) {
   const item = element('article', 'job-card');
   const details = element('details', 'job-details');
@@ -42,11 +69,16 @@ function card(job, expanded, archived = false) {
   const content = element('span');
   const meta = element('span', 'meta');
   const savedDate = job.savedAt ? new Date(job.savedAt) : null;
+  const match = cvMatch(job);
+  const matchBand = match > 80 ? 'high' : match >= 60 ? 'medium' : 'low';
+  const matchLabel = element('span', 'cv-match ' + matchBand, 'Shoda s CV: ' + match + ' %');
+  matchLabel.title = 'Orientační skóre podle technologií, náplně práce a požadavků v inzerátu';
   meta.append(
     element('span', '', [job.city, countryNames.of(job.country)].filter(Boolean).join(', ')),
     element('span', '', job.salary ? 'Plat: ' + job.salary : 'Plat: neuveden'),
     element('span', '', 'Remote: ' + ({ yes: 'Ano', no: 'Ne', na: 'N/A' }[job.remote] ?? 'N/A')),
     element('span', '', 'Uloženo: ' + (savedDate && Number.isFinite(savedDate.getTime()) ? dateFormat.format(savedDate) : 'N/A')),
+    matchLabel,
   );
   const title = element('span', 'title', job.title);
   if (archived) meta.append(element('span', '', 'Inzerát již není v aktivních nabídkách'));
