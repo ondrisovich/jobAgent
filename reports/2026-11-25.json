@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-25",
+  "timezone": "Europe/Paris",
+  "generatedAt": "2026-11-25T23:42:41+01:00",
+  "status": "complete",
+  "coverage": [
+    {
+      "region": "CZ",
+      "queries": [
+        "PLC programátor automatizace 90 000 Kč Praha práce aktuální nabídky",
+        "site:jobs.cz PLC programátor \"90 000\" \"120 000\" listopad 2026",
+        "ČR automatizace PLC SCADA \"100 000\" nabídka práce listopad 2026"
+      ],
+      "sourceUrls": [
+        "https://www.jobs.cz/prace/?q%5B%5D=PLC",
+        "https://www.pracomat.cz/nabidky-prace/profese/programator-plc-stroju/",
+        "https://www.jobs.cz/rpd/2001545634/"
+      ],
+      "notes": "Reviewed returned listings and opened recruiter listing; 60–100k and 60–110k ranges fail lower-bound rule. No qualifying confirmed salary in reviewed results. One employer redirect inaccessible and excluded."
+    },
+    {
+      "region": "CH",
+      "queries": [
+        "Schweiz SPS Automatisierung Ingenieur offene Stelle WinCC 2026",
+        "site:securecell.ch SPS Programmierer Automatisierungsingenieur Urdorf careers"
+      ],
+      "sourceUrls": [
+        "https://www.securecell.ch/en/careers-at-securecell",
+        "https://www.securecell.ch/de/recruitment-automatisierungsingenieur-urdorf-zurich-de?hsLang=de"
+      ],
+      "notes": "Employer listing verified; third-party salary not corroborated by employer and excluded. Other aggregator listings not independently confirmed."
+    },
+    {
+      "region": "DE",
+      "queries": [
+        "Deutschland SPS Automatisierung Ingenieur Stellenangebot 2026",
+        "PLC SCADA freelance remote 85 EUR hour commissioning 100 EUR hour Europe contract November 2026"
+      ],
+      "sourceUrls": [
+        "https://jobs.vacuumschmelze.de/Ingenieur-mwd-fuer-Automatisierungstechnik-und-SPS-Program-de-j1304.html",
+        "https://www.freelancermap.de/projekt/freelance-plc-programmer-commissioning-engineer-all-genders",
+        "https://www.arbeitsagentur.de/jobsuche/jobdetail/17139-k58747.2776-S"
+      ],
+      "notes": "Employer listing verified. Freelance rate 65–85 EUR/h excluded for threshold; BA individual listing timed out and excluded."
+    },
+    {
+      "region": "AT",
+      "queries": [
+        "Österreich SPS Automatisierung Stellenangebot 2026",
+        "site:karriere.at/jobs SPS Programmierer Leobersdorfer Maschinenfabrik November 2026"
+      ],
+      "sourceUrls": [
+        "https://www.karriere.at/jobs/automatisierungstechnik-sps",
+        "https://www.karriere.at/jobs/10036585"
+      ],
+      "notes": "Job board and original employer-posted listing reviewed; on-site employment with occasional home office."
+    },
+    {
+      "region": "EUROPE",
+      "queries": [
+        "Europe PLC SCADA automation engineer remote contract commissioning jobs November 2026",
+        "PLC SCADA freelance remote 85 EUR hour commissioning 100 EUR hour Europe contract November 2026",
+        "France ingénieur automatisme contrôle commande CDI automate Schneider Siemens novembre 2026 offre emploi",
+        "Nederland PLC SCADA engineer vacature november 2026 werkgever"
+      ],
+      "sourceUrls": [
+        "https://jobs.engie.com/job/Automaticienne-Automaticien-(FH)/74943-fr_FR/",
+        "https://pearsonpartners.nl/en/vacature/plc-scada-software-engineer/",
+        "https://www.freelancermap.de/projekt/freelance-plc-programmer-commissioning-engineer-all-genders",
+        "https://www.9am.works/jobs/automation-controls-engineer-job_justjoinit_softblue-intechhouse--automation-controls-engineer-warszawa-testing",
+        "https://www.apec.fr/candidat/recherche-emploi.html/emploi/detail-offre/179850387W"
+      ],
+      "notes": "Reviewed cross-Europe remote and commissioning results plus French and Dutch local listings. No verified remote or FIFO meeting thresholds in returned results; PLN rate excluded without conversion. Apec detail required login and was excluded. Coverage is limited to returned search results, not exhaustive of all European vacancies."
+    }
+  ],
+  "jobs": [
+    {
+      "title": "SPS-Programmierer / Automatisierungsingenieur (M/W) — Securecell",
+      "city": "Urdorf",
+      "country": "CH",
+      "salary": null,
+      "remote": "na",
+      "description": "Bioprocess automation software architecture, IEC 61131-3 SCL, Siemens TIA Portal and WinCC, HMI and commissioning. English required; German advantageous. Employer lists Urdorf headquarters.",
+      "url": "https://www.securecell.ch/de/recruitment-automatisierungsingenieur-urdorf-zurich-de?hsLang=de",
+      "category": "local",
+      "verifiedAt": "2026-11-25T23:42:41+01:00",
+      "compensation": null,
+      "salaryNotes": "No salary published in the employer's own listing; third-party figure not verified."
+    },
+    {
+      "title": "Ingenieur für Automatisierungstechnik und SPS-Programmierung — VACUUMSCHMELZE",
+      "city": "Hanau",
+      "country": "DE",
+      "salary": null,
+      "remote": "na",
+      "description": "Full-time R&D role designing production controls and visualization, Siemens Step7 and WinCC, plant commissioning and technical project management. Home office options; tariff pay without numeric amount.",
+      "url": "https://jobs.vacuumschmelze.de/Ingenieur-mwd-fuer-Automatisierungstechnik-und-SPS-Program-de-j1304.html",
+      "category": "local",
+      "verifiedAt": "2026-11-25T23:42:41+01:00",
+      "compensation": null
+    },
+    {
+      "title": "SPS-Programmierer – Automatisierungstechnik — Leobersdorfer Maschinenfabrik",
+      "city": "Leobersdorf",
+      "country": "AT",
+      "salary": "From 48,545.42 EUR gross/year",
+      "remote": "no",
+      "description": "Permanent on-site compressor automation, Step7/TIA Portal, WinCC and commissioning. Approximately 10% international travel; occasional home office possible. German and English B1.",
+      "url": "https://www.karriere.at/jobs/10036585",
+      "category": "local",
+      "verifiedAt": "2026-11-25T23:42:41+01:00",
+      "compensation": {
+        "minimum": 48545.42,
+        "currency": "EUR",
+        "period": "year",
+        "gross": true,
+        "kind": "employment",
+        "evidence": "€ 48.545,42 brutto pro Jahr",
+        "sourceUrl": "https://www.karriere.at/jobs/10036585"
+      }
+    },
+    {
+      "title": "Automaticienne / Automaticien — ENGIE Solutions",
+      "city": "Bouguenais",
+      "country": "FR",
+      "salary": "33,000–35,000 EUR gross/year",
+      "remote": "no",
+      "description": "Permanent on-site industrial automation at Airbus site; Siemens, Schneider, Saia PLCs and PCVue supervision, troubleshooting and commissioning.",
+      "url": "https://jobs.engie.com/job/Automaticienne-Automaticien-(FH)/74943-fr_FR/",
+      "category": "local",
+      "verifiedAt": "2026-11-25T23:42:41+01:00",
+      "compensation": {
+        "minimum": 33000,
+        "currency": "EUR",
+        "period": "year",
+        "gross": true,
+        "kind": "employment",
+        "evidence": "Rémunération annuelle brute entre 33 et 35 K Euro",
+        "sourceUrl": "https://jobs.engie.com/job/Automaticienne-Automaticien-(FH)/74943-fr_FR/"
+      }
+    },
+    {
+      "title": "PLC Scada Software Engineer — Pearson & Partners",
+      "city": null,
+      "country": "NL",
+      "salary": "5,000 EUR/month (gross/net not specified)",
+      "remote": "na",
+      "description": "Permanent industrial automation consultancy position in Gelderland, PLC software and SCADA commissioning using Siemens, Schneider, Rockwell or ABB. 36–40 hours/week.",
+      "url": "https://pearsonpartners.nl/en/vacature/plc-scada-software-engineer/",
+      "category": "local",
+      "verifiedAt": "2026-11-25T23:42:41+01:00",
+      "compensation": null
+    }
+  ]
+}
