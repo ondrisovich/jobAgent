@@ -7,7 +7,7 @@ const paths = [
   ['/app.js', 'app.js', 'text/javascript'],
 ];
 const assets = Object.fromEntries(await Promise.all(paths.map(async ([route, file, type]) => [
-  route, [type, await readFile(new URL('./dist/' + file, import.meta.url), 'utf8')],
+  route, [type, await readFile(new URL(file, import.meta.url), 'utf8')],
 ])));
 await mkdir(folder, { recursive: true });
 const worker = await readFile(new URL('./worker.mjs', import.meta.url), 'utf8');

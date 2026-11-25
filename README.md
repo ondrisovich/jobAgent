@@ -1,10 +1,10 @@
 # jobAgent
 
-Webový přehled nabídek v průmyslové automatizaci a řídicích systémech v Evropě. Rozhraní třídí nabídky do záložek CZ, SWISS, DE+AU a EU. Zobrazuje detail pozice, plat, režim práce, datum prvního uložení a odkaz na inzerát. Srdíčko, „Not interesting“ a „Applied“ se ukládají na server.
+Track industrial automation and control systems jobs across Europe. jobAgent combines a Node.js dashboard with a JSON import API and an optional daily search workflow.
 
-## Instalace
+## Install and run
 
-Potřebuješ Git a Node.js 20 nebo novější. Projekt nemá balíčky k instalaci.
+Requirements are Git and Node.js 20 or newer. There are no dependencies to install.
 
 ```sh
 git clone https://github.com/ondrisovich/jobAgent.git
@@ -12,36 +12,40 @@ cd jobAgent
 node local.mjs
 ```
 
-Otevři [lokální přehled](http://127.0.0.1:3210). Pro jiný port nastav proměnnou prostředí `JOBS_PORT`; synchronizačnímu skriptu pak nastav stejnou adresu přes `JOBS_SITE_URL`.
+Open [the local dashboard](http://127.0.0.1:3210). The local server listens on loopback. Set `JOBS_PORT` to use a different port and set `JOBS_SITE_URL` to the matching origin when running the importer.
 
-## První import
+## Import your first jobs
 
-V druhém terminálu se spuštěným webem použij ukázkovou dávku.
+Keep the server running and open another terminal in the repository.
 
 ```sh
-node sync-jobs.mjs examples/jobs.json
+node sync-jobs.mjs jobs.example.json
 ```
 
-Skript přidá nové nabídky do webu, ověří jejich uložení a zapíše regionální soubory `CZ.json`, `SWISS.json`, `DE_AU.json` a `EU.json`. Spusť ho znovu se stejnou dávkou a výsledek zůstane bez duplicit. Pro vlastní sken nahraď ukázku JSON polem s reálnými nabídkami.
+The importer verifies the write and updates `CZ.json`, `SWISS.json`, `DE_AU.json`, and `EU.json`. Repeating the same import skips existing URLs. An offer appears under CZ, SWISS, DE+AU, or EU according to its country.
 
-## Rozhraní a data
+The dashboard shows the location, salary, remote policy, first import date, and original listing. The heart marks a favorite. The cross moves an offer to **Not interesting**. The checkmark moves it to **Applied**. Click an active control again to undo it. These selections persist on the server.
 
-| Metoda a adresa | Účel |
+## Data and API
+
+Use [the example batch](jobs.example.json) as the input format. Supply an uppercase two-letter country code, and use `yes`, `no`, or `na` for remote work. Use `null` for an unknown city or salary. A salary string can include currency and pay period. The server sets `savedAt` at first import.
+
+| Method and path | Purpose |
 | --- | --- |
-| `GET /jobs.json` | Aktivní nabídky ve všech regionech |
-| `POST /api/jobs` | Import JSON pole nabídek s `Content-Type: application/json` |
-| `PATCH /api/jobs` | Odstranění potvrzeně uzavřených nabídek podle JSON pole původních URL |
-| `GET /api/job-status` | Uložená označení |
-| `POST /api/job-status` | Úprava `favorite` nebo `status` pro konkrétní `url` |
+| `GET /jobs.json` | Read active listings |
+| `POST /api/jobs` | Append new listings from a JSON array |
+| `PATCH /api/jobs` | Remove confirmed closed listings by exact URL |
+| `GET /api/job-status` | Read saved selections |
+| `POST /api/job-status` | Update `favorite` or `status` for a listing URL |
 
-Pole `country` je dvoupísmenný kód země, `remote` přijímá `yes`, `no` nebo `na`. Neznámý plat nebo město zadej jako `null`. Server doplňuje `savedAt` při prvním importu a podle URL rozpozná opakované záznamy. Archiv stavů umožňuje zachovat označené inzeráty i po skončení jejich platnosti. Lokální server naslouchá pouze na rozhraní loopback.
+Send request bodies as `application/json`. Local application data is stored in `dist/jobs.json` and `dist/job-status.json`.
 
-## Napojení denní úlohy
+## Daily search
 
-Repozitář obsahuje web, importní skript a postup v [návodu pro denní sken](SCAN.md). Samotnou úlohu vytvoř v Codexu. Použij pravidelný běh, který vyhledá a ověří zdrojové odkazy, připraví dávku, spustí synchronizaci a následně prověří starší nabídky.
+See [the scan workflow](SCAN.md) for a Codex scheduled task. The task prepares an import batch from verified sources and then checks older listings for closures. Set up the schedule in Codex for the account and machine that will run it.
 
-## Nasazení na soukromý Sites
+## Private hosting
 
-Vytvoř vlastní privátní projekt Sites s úložištěm R2 pod vazbou `BUCKET`. Podle `.openai/hosting.example.json` připrav lokální `.openai/hosting.json` s ID vlastního projektu. Příkaz `node build.mjs` sestaví Worker do `dist/server/index.js`. Publikuj ho standardním postupem Sites pro soukromé projekty.
+Create a private Sites project and provision an R2 bucket binding called `BUCKET`. Copy `hosting.example.json` to `.openai/hosting.json` and set your own project ID. Run `node build.mjs` to build the Worker at `dist/server/index.js` and publish it through your private Sites deployment workflow.
 
-Pro vzdálený import nastav `JOBS_SITE_URL` na HTTPS adresu projektu a služební token Sites předej synchronizačnímu skriptu přes stdin. Lokální data, osobní údaje a přístupové údaje zůstávají mimo repozitář.
+For remote imports, set `JOBS_SITE_URL` to your HTTPS site origin and supply the Sites service token over stdin. Keep site credentials and personal data out of Git.

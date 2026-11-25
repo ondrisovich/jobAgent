@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5f7">
+  <title>Práce v Evropě</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <header class="top"><div class="frame">Práce v Evropě</div></header>
+  <main class="frame">
+    <section aria-labelledby="region">
+      <header class="section-head">
+        <h1 id="region"></h1>
+        <span id="count"></span>
+      </header>
+      <div id="jobs"></div>
+      <p id="status" role="status"></p>
+    </section>
+    <div id="job-collections">
+      <details class="collection" id="dismissed">
+        <summary>Not interesting <span class="collection-count"></span></summary>
+        <div class="job-list"></div>
+      </details>
+      <details class="collection" id="applied">
+        <summary>Applied <span class="collection-count"></span></summary>
+        <div class="job-list"></div>
+      </details>
+    </div>
+  </main>
+  <footer>
+    <nav aria-label="Regiony" class="frame">
+      <a href="#cz">CZ</a>
+      <a href="#swiss">SWISS</a>
+      <a href="#de-au">DE+AU</a>
+      <a href="#eu">EU</a>
+    </nav>
+  </footer>
+</body>
+</html>

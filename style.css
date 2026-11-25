@@ -1,0 +1,64 @@
+:root {
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  color: #1d1d1f;
+  background: #f5f5f7;
+  font-synthesis: none;
+  --blue: #0066cc;
+  --muted: #626267;
+  --line: #dedee3;
+}
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100dvh; display: flex; flex-direction: column; }
+.frame { width: min(100% - 2.5rem, 62rem); margin-inline: auto; }
+.top { background: #fff; border-bottom: 1px solid var(--line); }
+.top .frame { padding-block: 1rem; font-weight: 650; }
+main { flex: 1; padding-block: clamp(1.75rem, 5vw, 3.5rem) 4rem; }
+h1, p { margin: 0; }
+h1 { font-size: clamp(1.75rem, 5vw, 2.65rem); letter-spacing: -.045em; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: .9rem; }
+#count { font-size: .9rem; color: var(--muted); text-align: right; }
+#jobs, .job-list, #job-collections { display: grid; gap: .75rem; }
+.job-card, .empty, .collection { background: #fff; border-radius: 1.15rem; }
+.job-card { position: relative; }
+.job-details { border-radius: inherit; }
+.job-details > summary { padding-inline-end: 9.5rem; }
+#job-collections { margin-top: 1.5rem; }
+.collection > summary { font-weight: 650; }
+.collection-count { color: var(--muted); font-size: .9rem; }
+.job-list { padding: 0 .65rem .65rem; }
+.job-list .job-card { background: #f5f5f7; }
+.collection-empty { padding: 0 .85rem .8rem; color: var(--muted); }
+summary { list-style: none; cursor: pointer; padding: 1.3rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; border-radius: inherit; }
+summary::-webkit-details-marker { display: none; }
+.title { display: block; font-weight: 650; font-size: 1.2rem; overflow-wrap: anywhere; }
+.meta { display: flex; flex-wrap: wrap; gap: .4rem 1rem; margin-top: .55rem; color: var(--muted); font-size: .95rem; }
+.toggle { display: grid; place-items: center; flex: 0 0 2rem; height: 2rem; border-radius: 50%; background: #f5f5f7; color: var(--blue); }
+.toggle::before { content: "+"; font-size: 1.2rem; }
+.job-details[open] > summary .toggle::before { content: "−"; }
+.detail { padding: 1.3rem 0 1.5rem; margin-inline: 1.5rem; border-top: 1px solid var(--line); }
+.detail p { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.6; margin-bottom: 1.15rem; }
+.actions { position: absolute; inset-block-start: .98rem; inset-inline-end: 1.1rem; display: flex; gap: .2rem; }
+.job-action { width: 2.35rem; height: 2.35rem; padding: 0; display: grid; place-items: center; border: 0; border-radius: 50%; background: transparent; color: var(--muted); font: inherit; font-size: 1.4rem; font-weight: 650; cursor: pointer; }
+.job-action:hover { background: #e9e9ef; }
+.job-action.favorite[aria-pressed="true"] { color: #c92242; }
+.job-action.applied[aria-pressed="true"] { color: #168044; }
+@media (hover: hover) and (pointer: fine) {
+  .job-card:not(:hover):not(:focus-within) .job-action[aria-pressed="false"] { opacity: 0; pointer-events: none; }
+}
+@media (max-width: 35rem) {
+  .job-details > summary { padding: 3.55rem 1rem 1rem; }
+  .actions { inset-block-start: .55rem; inset-inline-end: .65rem; }
+}
+.job-action:disabled { opacity: .6; cursor: wait; }
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.empty { text-align: center; padding: 3rem 1rem; }
+.empty strong { font-size: 1.15rem; }
+.empty p { color: var(--muted); margin-top: .45rem; line-height: 1.5; }
+#status:not(:empty) { margin-top: .75rem; color: var(--muted); }
+footer { position: sticky; bottom: 0; border-top: 1px solid var(--line); background: #fafafced; backdrop-filter: blur(16px); padding-bottom: env(safe-area-inset-bottom); }
+nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: .25rem; padding-block: .6rem; }
+nav a { color: var(--muted); font-size: .9rem; text-align: center; padding: .75rem .15rem; border-radius: .65rem; font-weight: 650; }
+nav a[aria-current] { background: #e7f1fc; color: var(--blue); }
