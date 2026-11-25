@@ -1,0 +1,12 @@
+{
+  "name": "job-agent",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A dashboard and import API for tracking industrial automation jobs across Europe.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node local.mjs",
+    "build": "node build.mjs"
+  }
+}

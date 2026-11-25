@@ -1,0 +1,12 @@
+dist/server/
+dist/.*.tmp
+dist/job-status.json
+/dist/jobs.json
+/.openai/hosting.json
+/.env
+/.env.*
+/CZ.json
+/SWISS.json
+/DE_AU.json
+/EU.json
+/.*.json.tmp
