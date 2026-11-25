@@ -5,8 +5,6 @@ dist/job-status.json
 /.openai/hosting.json
 /.env
 /.env.*
-/CZ.json
-/SWISS.json
-/DE_AU.json
-/EU.json
 /.*.json.tmp
+/.imports/*.json.tmp
+/reports/*.json.tmp

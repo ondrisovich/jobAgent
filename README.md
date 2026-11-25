@@ -42,7 +42,7 @@ Send request bodies as `application/json`. Local application data is stored in `
 
 ## Daily search
 
-See [the scan workflow](SCAN.md) for a Codex scheduled task. The task prepares an import batch from verified sources and then checks older listings for closures. Set up the schedule in Codex for the account and machine that will run it.
+See [the daily workflow](SCAN.md) for the ChatGPT 07:00 report contract and Codex 07:15 import, with conditional checks at 07:30 and 07:45 (Europe/Paris). `node import-report.mjs YYYY-MM-DD` appends a validated report without a running web server, preserving old entries and recording an idempotency marker. Publish all outputs in one commit. This does not update the dashboard or create schedules by itself. See [the report schema](report.schema.json).
 
 ## Private hosting
 

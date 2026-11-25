@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ondrisovich/jobAgent/blob/main/report.schema.json",
+  "title": "Combined daily automation job report",
+  "description": "Runtime validator import-report.mjs also enforces geographic, date and cumulative salary rules in SCAN.md. Compensation minimum is the advertised lower bound; no invented conversions. salaryNotes explicitly records missing Swiss salary.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "date",
+    "timezone",
+    "generatedAt",
+    "status",
+    "coverage",
+    "jobs"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "timezone": {
+      "const": "Europe/Paris"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "const": "complete"
+    },
+    "coverage": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "region",
+          "queries",
+          "sourceUrls",
+          "notes"
+        ],
+        "properties": {
+          "region": {
+            "enum": [
+              "CZ",
+              "CH",
+              "DE",
+              "AT",
+              "EUROPE"
+            ]
+          },
+          "queries": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "sourceUrls": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "pattern": "^https?://"
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "jobs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "city",
+          "country",
+          "salary",
+          "remote",
+          "description",
+          "url",
+          "category",
+          "verifiedAt",
+          "compensation"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "city": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "country": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          },
+          "salary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "remote": {
+            "enum": [
+              "yes",
+              "no",
+              "na"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://"
+          },
+          "category": {
+            "enum": [
+              "local",
+              "remote",
+              "fifo"
+            ]
+          },
+          "verifiedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "compensation": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": [
+              "minimum",
+              "currency",
+              "period",
+              "gross",
+              "kind",
+              "evidence",
+              "sourceUrl"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "minimum": {
+                "type": "number",
+                "minimum": 0
+              },
+              "currency": {
+                "enum": [
+                  "CZK",
+                  "CHF",
+                  "EUR"
+                ]
+              },
+              "period": {
+                "enum": [
+                  "month",
+                  "year",
+                  "hour"
+                ]
+              },
+              "gross": {
+                "type": "boolean"
+              },
+              "kind": {
+                "enum": [
+                  "employment",
+                  "b2b"
+                ]
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sourceUrl": {
+                "type": "string",
+                "format": "uri",
+                "pattern": "^https?://"
+              }
+            }
+          },
+          "salaryNotes": {
+            "type": "string"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "country": {
+                  "const": "CH"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "salaryNotes"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}
