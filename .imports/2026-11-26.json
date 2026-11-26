@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-26",
+  "status": "partial",
+  "sha256": "e4cc959e8e40d114e0fb9a0ff553b38e21815350f7f5579f510f6af6ffdf2fb7",
+  "added": {
+    "CZ.json": 0,
+    "SWISS.json": 1,
+    "DE_AU.json": 1,
+    "EU.json": 0
+  }
+}
