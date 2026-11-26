@@ -20,12 +20,12 @@ export function canonical(value) {
 const regionFor = country => ({ CZ: 'CZ.json', CH: 'SWISS.json', DE: 'DE_AU.json', AT: 'DE_AU.json' }[country] ?? 'EU.json');
 export function validateReport(report, date) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || new Date(date).toISOString().slice(0, 10) !== date) throw Error('Invalid date');
-  if (report.schemaVersion !== 1 || report.date !== date || report.timezone !== 'Europe/Paris' || report.status !== 'complete') throw Error('Wrong date, version, timezone or incomplete report');
+  if (report.schemaVersion !== 1 || report.date !== date || report.timezone !== 'Europe/Paris' || !['complete', 'partial'].includes(report.status)) throw Error('Wrong date, version, timezone or report status');
   if (!Number.isFinite(Date.parse(report.generatedAt)) || localDate(new Date(report.generatedAt)) !== date) throw Error('Invalid generation timestamp');
   if (!Array.isArray(report.coverage) || report.coverage.length !== 5 || new Set(report.coverage.map(c => c.region)).size !== 5) throw Error('Incomplete coverage');
   for (const name of ['CZ', 'CH', 'DE', 'AT', 'EUROPE']) {
     const item = report.coverage.find(c => c.region === name);
-    if (!item || !Array.isArray(item.queries) || !item.queries.length || item.queries.some(q => typeof q !== 'string' || !q.trim()) || !Array.isArray(item.sourceUrls) || !item.sourceUrls.length || typeof item.notes !== 'string') throw Error('Missing search evidence: ' + name);
+    if (!item || !Array.isArray(item.queries) || (report.status === 'complete' && !item.queries.length) || item.queries.some(q => typeof q !== 'string' || !q.trim()) || !Array.isArray(item.sourceUrls) || (report.status === 'complete' && !item.sourceUrls.length) || typeof item.notes !== 'string' || (report.status === 'partial' && !item.notes.trim())) throw Error('Missing search evidence: ' + name);
     item.sourceUrls.forEach(canonical);
   }
   if (!Array.isArray(report.jobs)) throw Error('jobs must be an array');
@@ -87,7 +87,7 @@ export async function importReport(root, date = localDate()) {
   }
   const writes = [];
   for (const [name, archive] of archives) if (archive.added) writes.push([name, JSON.stringify(archive.entries, null, 2) + '\n']);
-  writes.push(['.imports/' + date + '.json', JSON.stringify({ date, sha256: digest, added: Object.fromEntries([...archives].map(([name, archive]) => [name, archive.added])) }, null, 2) + '\n']);
+  writes.push(['.imports/' + date + '.json', JSON.stringify({ date, status: report.status, sha256: digest, added: Object.fromEntries([...archives].map(([name, archive]) => [name, archive.added])) }, null, 2) + '\n']);
   // Validate every input before writing; the publisher commits all outputs atomically.
   for (const [name, content] of writes) {
     const target = resolve(root, name);

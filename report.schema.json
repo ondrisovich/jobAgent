@@ -30,7 +30,10 @@
       "format": "date-time"
     },
     "status": {
-      "const": "complete"
+      "enum": [
+        "complete",
+        "partial"
+      ]
     },
     "coverage": {
       "type": "array",
@@ -57,7 +60,7 @@
           },
           "queries": {
             "type": "array",
-            "minItems": 1,
+            "minItems": 0,
             "items": {
               "type": "string",
               "minLength": 1
@@ -65,7 +68,7 @@
           },
           "sourceUrls": {
             "type": "array",
-            "minItems": 1,
+            "minItems": 0,
             "items": {
               "type": "string",
               "format": "uri",
@@ -219,5 +222,45 @@
         ]
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "complete"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "coverage": {
+            "items": {
+              "properties": {
+                "queries": {
+                  "minItems": 1
+                },
+                "sourceUrls": {
+                  "minItems": 1
+                }
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "coverage": {
+            "items": {
+              "properties": {
+                "notes": {
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }

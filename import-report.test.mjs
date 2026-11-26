@@ -67,3 +67,17 @@ test('routes all regions and deduplicates against existing other region', async 
   assert.deepEqual(JSON.parse(await readFile(join(root, 'EU.json')))[0], existing);
   assert.equal(JSON.parse(await readFile(join(root, 'EU.json'))).length, 2);
 });
+
+test('partial report imports verified jobs and records status, but requires notes', async t => {
+  const root = await setup(t, []);
+  const partial = report([job]); partial.status = 'partial';
+  partial.coverage[1] = { region: 'CH', queries: [], sourceUrls: [], notes: 'Search unavailable' };
+  const path = join(root, 'reports', date + '.json');
+  await writeFile(path, JSON.stringify({...partial, coverage: partial.coverage.map(c => ({...c, notes: ''}))}));
+  await assert.rejects(importReport(root, date), /Missing search evidence/);
+  await writeFile(path, JSON.stringify(partial));
+  assert.equal((await importReport(root, date)).status, 'imported');
+  assert.equal(JSON.parse(await readFile(join(root, '.imports', date + '.json'))).status, 'partial');
+  assert.equal(JSON.parse(await readFile(join(root, 'CZ.json'))).length, 1);
+  assert.equal((await importReport(root, date)).status, 'already-imported');
+});
