@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-26",
+  "timezone": "Europe/Paris",
+  "generatedAt": "2026-11-26T08:23:32.156Z",
+  "status": "partial",
+  "coverage": [
+    {
+      "region": "CZ",
+      "queries": [
+        "Czech PLC programátor automatizace 90000 Kč práce listopad 2026"
+      ],
+      "sourceUrls": [
+        "https://www.jobs.cz/prace/?q%5B0%5D=PLC+Programmer"
+      ],
+      "notes": "Reviewed visible listings; none had verified minimum above CZK 80000. Not exhaustive."
+    },
+    {
+      "region": "CH",
+      "queries": [
+        "site:jobs.ch Automatisierungsingenieur SPS November 2026"
+      ],
+      "sourceUrls": [
+        "https://www.jobs.ch/de/stellenangebote/detail/d817afa0-962f-4bc3-b00c-4972372410a1/"
+      ],
+      "notes": "One employer listing opened and verified; other candidates not individually checked."
+    },
+    {
+      "region": "DE",
+      "queries": [
+        "Deutschland SPS Programmierer Stellenangebot Arbeitgeber November 2026 Automatisierung"
+      ],
+      "sourceUrls": [
+        "https://www.t-online.jobs/stellenangebote/sps-programmierer-in/deutschland/",
+        "https://www.arbeitsagentur.de/jobsuche/jobdetail/17139-k58747.2776-S"
+      ],
+      "notes": "Original listing fetch timed out; no verified new German jobs."
+    },
+    {
+      "region": "AT",
+      "queries": [
+        "site:karriere.at/jobs SPS Programmierer Automatisierung November 2026"
+      ],
+      "sourceUrls": [
+        "https://www.karriere.at/jobs/7907495"
+      ],
+      "notes": "One recruiter listing opened and verified; broader coverage incomplete."
+    },
+    {
+      "region": "EUROPE",
+      "queries": [
+        "France ingénieur automatisme offre emploi novembre 2026 Safran GE Vernova",
+        "PLC SCADA freelance commissioning remote EUR hour contract Europe"
+      ],
+      "sourceUrls": [
+        "https://careers.gevernova.com/fr/ing%C3%A9nieur-automatisme-h-f/job/R5056726",
+        "https://www.freelancermap.de/projekt/freelance-plc-programmer-commissioning-engineer-all-genders"
+      ],
+      "notes": "GE original listing returned 404. Freelance candidate advertised EUR 65–85/h, below threshold. Remote/FIFO coverage incomplete."
+    }
+  ],
+  "jobs": [
+    {
+      "title": "Automatisierungsingenieur — Lonza",
+      "city": "Visp",
+      "country": "CH",
+      "salary": null,
+      "remote": "no",
+      "description": "Site-based temporary process automation role through December 2027, DeltaV and Syncade MES, pharmaceutical manufacturing, German and English required; contracting handled by Randstad.",
+      "url": "https://www.jobs.ch/de/stellenangebote/detail/d817afa0-962f-4bc3-b00c-4972372410a1/",
+      "category": "local",
+      "verifiedAt": "2026-11-26T08:23:32.156Z",
+      "compensation": null,
+      "salaryNotes": "No numerical salary advertised."
+    },
+    {
+      "title": "Automatisierungstechniker — KERN engineering careers",
+      "city": "Linz",
+      "country": "AT",
+      "salary": "4500–5500 EUR gross/month",
+      "remote": "na",
+      "description": "Siemens PLC programming, software testing and industrial plant commissioning; home office possible, about 10% travel in DACH region.",
+      "url": "https://www.karriere.at/jobs/7907495",
+      "category": "local",
+      "verifiedAt": "2026-11-26T08:23:32.156Z",
+      "compensation": {
+        "minimum": 4500,
+        "currency": "EUR",
+        "period": "month",
+        "gross": true,
+        "kind": "employment",
+        "evidence": "Advertised gross monthly minimum for full-time employment: EUR 4500.",
+        "sourceUrl": "https://www.karriere.at/jobs/7907495"
+      }
+    }
+  ]
+}
